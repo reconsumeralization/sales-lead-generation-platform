@@ -11,11 +11,16 @@
     "build": "tsc",
     "start": "node dist/index.js"
   },
-  "keywords": ["ai", "sales", "lead-generation", "microservices"],
+  "keywords": [
+    "ai",
+    "sales",
+    "lead-generation",
+    "microservices"
+  ],
   "author": "AI-Native Agency",
   "license": "MIT",
   "devDependencies": {
-    "@types/node": "^20.0.0",
+    "@types/node": "^20.19.24",
     "@types/express": "^4.17.17",
     "@types/jest": "^29.5.0",
     "eslint": "^8.40.0",
