@@ -1,0 +1,33 @@
+{
+  "name": "lead-scoring-service",
+  "version": "1.0.0",
+  "description": "Lead Scoring Service for Sales Platform",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "ts-node src/index.ts",
+    "test": "jest"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "pg": "^8.11.0",
+    "redis": "^4.6.0",
+    "kafkajs": "^2.2.4",
+    "axios": "^1.4.0",
+    "winston": "^3.8.2",
+    "dotenv": "^16.0.3",
+    "joi": "^17.9.0",
+    "@tensorflow/tfjs-node": "^4.10.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/express": "^4.17.17",
+    "@types/pg": "^8.10.0",
+    "@types/cors": "^2.8.13",
+    "typescript": "^5.0.0",
+    "ts-node": "^10.9.0",
+    "jest": "^29.5.0",
+    "@types/jest": "^29.5.0"
+  }
+}

@@ -1,0 +1,161 @@
+version: '3.8'
+
+services:
+  # GitHub Integration Service
+  github-integration:
+    build:
+      context: .
+      dockerfile: Dockerfile.integration
+    ports:
+      - "9000:9000"  # Webhook listener
+      - "9001:9001"  # Metrics endpoint
+    environment:
+      - NODE_ENV=production
+      - GITHUB_TOKEN=${GITHUB_TOKEN}
+      - GITHUB_WEBHOOK_SECRET=${GITHUB_WEBHOOK_SECRET}
+      - PLATFORM_BASE_URL=${PLATFORM_BASE_URL}
+      - WEBHOOK_URL=${WEBHOOK_URL}
+      - REPO_OWNER=reconsumeralization
+      - REPO_NAME=a-a-ronsFloridaSolarLLC
+    volumes:
+      - ./logs:/app/logs
+      - ./config:/app/config
+    networks:
+      - solar-integration
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9001/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Repository Sync Service
+  repo-sync:
+    build:
+      context: .
+      dockerfile: Dockerfile.sync
+    environment:
+      - NODE_ENV=production
+      - GITHUB_TOKEN=${GITHUB_TOKEN}
+      - PLATFORM_BASE_URL=${PLATFORM_BASE_URL}
+      - PLATFORM_API_TOKEN=${PLATFORM_API_TOKEN}
+      - SYNC_INTERVAL_MINUTES=5
+      - BATCH_SIZE=50
+    volumes:
+      - ./logs:/app/logs
+      - ./data:/app/data
+    networks:
+      - solar-integration
+    restart: unless-stopped
+    depends_on:
+      - github-integration
+
+  # Redis for Integration Caching
+  redis-integration:
+    image: redis:7-alpine
+    ports:
+      - "6380:6379"
+    volumes:
+      - redis_integration_data:/data
+    networks:
+      - solar-integration
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+
+  # PostgreSQL for Integration Data
+  postgres-integration:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_DB=solar_integration
+      - POSTGRES_USER=integration
+      - POSTGRES_PASSWORD=integration_password
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_integration_data:/var/lib/postgresql/data
+      - ./sql:/docker-entrypoint-initdb.d
+    networks:
+      - solar-integration
+    restart: unless-stopped
+
+  # Monitoring and Metrics
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    networks:
+      - solar-integration
+    restart: unless-stopped
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+
+  # Grafana Dashboard
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3001:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./monitoring/grafana:/etc/grafana/provisioning
+    networks:
+      - solar-integration
+    restart: unless-stopped
+
+  # Log Aggregation
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.8.0
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ports:
+      - "9201:9200"
+    volumes:
+      - elasticsearch_integration_data:/usr/share/elasticsearch/data
+    networks:
+      - solar-integration
+    restart: unless-stopped
+
+  # Log Visualization
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.8.0
+    ports:
+      - "5601:5601"
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    networks:
+      - solar-integration
+    restart: unless-stopped
+    depends_on:
+      - elasticsearch
+
+  # Webhook Testing Tool
+  webhook-tester:
+    image: tarampampam/webhook-tester:latest
+    ports:
+      - "8080:8080"
+    networks:
+      - solar-integration
+    restart: unless-stopped
+
+volumes:
+  redis_integration_data:
+  postgres_integration_data:
+  prometheus_data:
+  grafana_data:
+  elasticsearch_integration_data:
+
+networks:
+  solar-integration:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16

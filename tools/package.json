@@ -1,0 +1,59 @@
+{
+  "name": "solar-platform-tools",
+  "version": "1.0.0",
+  "description": "Automated tools for Ron's Florida Solar LLC platform management",
+  "main": "auto-setup.js",
+  "scripts": {
+    "setup": "node auto-setup.js",
+    "deploy": "node deploy-solar.js",
+    "test": "node test-integration.js",
+    "monitor": "node monitor-system.js",
+    "health-check": "node test-integration.js --health-only",
+    "load-test": "node test-integration.js --load-test",
+    "backup": "node backup-system.js",
+    "restore": "node restore-system.js"
+  },
+  "keywords": [
+    "solar",
+    "automation",
+    "deployment",
+    "monitoring",
+    "testing",
+    "florida",
+    "lead-generation"
+  ],
+  "author": "AI-Native Agency",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.4.0",
+    "chalk": "^4.1.2",
+    "inquirer": "^8.2.5",
+    "ora": "^5.4.1",
+    "table": "^6.8.1",
+    "@octokit/rest": "^20.0.2",
+    "dotenv": "^16.0.3",
+    "fs-extra": "^11.1.1",
+    "node-cron": "^3.0.2",
+    "winston": "^3.8.2",
+    "commander": "^11.0.0",
+    "progress": "^2.0.3",
+    "figlet": "^1.6.0",
+    "boxen": "^5.1.2"
+  },
+  "devDependencies": {
+    "jest": "^29.5.0",
+    "nodemon": "^3.0.1",
+    "eslint": "^8.40.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/reconsumeralization/a-a-ronsFloridaSolarLLC"
+  },
+  "bugs": {
+    "url": "https://github.com/reconsumeralization/a-a-ronsFloridaSolarLLC/issues"
+  },
+  "homepage": "https://github.com/reconsumeralization/a-a-ronsFloridaSolarLLC#readme"
+}

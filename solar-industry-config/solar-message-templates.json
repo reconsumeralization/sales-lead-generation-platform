@@ -1,0 +1,119 @@
+{
+  "solar_message_templates": {
+    "residential": {
+      "initial_contact": {
+        "email": {
+          "subject_lines": [
+            "Your Florida home could save ${{monthly_savings}} monthly with solar",
+            "{{first_name}}, see how much solar could save you in {{city}}",
+            "Free solar analysis for your {{city}} home - No obligation",
+            "Your neighbors are saving ${{avg_neighborhood_savings}} with solar"
+          ],
+          "body_template": "Hi {{first_name}},\n\nI noticed you might be interested in solar for your {{city}} home. With Florida's excellent sun exposure and current incentives, homeowners in your area are typically saving ${{estimated_monthly_savings}} per month on electricity.\n\nHere's what makes solar attractive in Florida right now:\n• 30% Federal Tax Credit (expires soon)\n• No property tax increase on solar value\n• Net metering with {{utility_company}}\n• Hurricane backup power options\n\nWould you like a free, no-obligation analysis to see your potential savings? I can show you exactly how much solar would save on your {{monthly_bill}} electric bill.\n\nBest regards,\n{{sales_rep_name}}\nRon's Florida Solar LLC\n{{phone}} | {{email}}"
+        },
+        "sms": {
+          "template": "Hi {{first_name}}! This is {{sales_rep_name}} from Ron's Florida Solar. Your {{city}} home could save ${{monthly_savings}}/month with solar + 30% tax credit. Free analysis? Reply YES or call {{phone}}"
+        },
+        "linkedin": {
+          "template": "Hi {{first_name}}, I help Florida homeowners reduce their electric bills with solar. Your {{city}} area has excellent solar potential - homeowners typically save ${{monthly_savings}}/month. Would you be interested in a free savings analysis for your home?"
+        }
+      },
+      "follow_up_educational": {
+        "email": {
+          "subject_lines": [
+            "{{first_name}}, here's how solar works in Florida",
+            "3 things every Florida homeowner should know about solar",
+            "Why your neighbors chose solar (and you should too)",
+            "Solar myths vs. reality in Florida"
+          ],
+          "body_template": "Hi {{first_name}},\n\nI wanted to share some important facts about solar in Florida that many homeowners don't know:\n\n🌞 **Florida Solar Fact #1**: Your home gets {{annual_sun_hours}} hours of sun annually - that's excellent for solar!\n\n💰 **Florida Solar Fact #2**: With net metering, excess power goes back to {{utility_company}} for credits on cloudy days.\n\n🏠 **Florida Solar Fact #3**: Solar adds value to your home but doesn't increase property taxes (Florida law).\n\n⛈️ **Florida Solar Fact #4**: Modern solar systems can provide backup power during hurricanes with battery storage.\n\nYour estimated savings: ${{monthly_savings}}/month\nPayback period: {{payback_years}} years\nLifetime savings: ${{lifetime_savings}}\n\nReady to see your custom solar proposal?\n\n{{sales_rep_name}}\nRon's Florida Solar LLC"
+        }
+      },
+      "proposal_follow_up": {
+        "email": {
+          "subject_lines": [
+            "Your solar proposal - {{system_size}}kW system saves ${{monthly_savings}}/month",
+            "{{first_name}}, questions about your solar proposal?",
+            "Ready to lock in your solar savings?",
+            "Your solar system pays for itself in {{payback_years}} years"
+          ],
+          "body_template": "Hi {{first_name}},\n\nI hope you had a chance to review the solar proposal for your {{address}} home. Here's a quick summary:\n\n**System Details:**\n• {{system_size}}kW solar system\n• {{panel_count}} premium solar panels\n• {{inverter_type}} inverter technology\n• 25-year warranty included\n\n**Financial Benefits:**\n• Monthly savings: ${{monthly_savings}}\n• Annual savings: ${{annual_savings}}\n• 25-year savings: ${{lifetime_savings}}\n• Payback period: {{payback_years}} years\n• Federal tax credit: ${{tax_credit_amount}}\n\n**Next Steps:**\n{{#if financing_approved}}\n✅ Financing pre-approved at {{interest_rate}}%\n{{else}}\n• Financing options available (0% down)\n{{/if}}\n• Installation timeline: {{installation_timeline}}\n• Permits handled by our team\n\nDo you have any questions? I'm here to help make this easy for you.\n\n{{sales_rep_name}}\nRon's Florida Solar LLC"
+        }
+      },
+      "objection_handling": {
+        "cost_concern": {
+          "email": {
+            "subject": "{{first_name}}, solar costs less than you think",
+            "body": "Hi {{first_name}},\n\nI understand cost is a concern. Here's the reality about solar costs in Florida:\n\n**Today's Reality:**\n• $0 down financing available\n• Monthly solar payment: ${{solar_payment}}\n• Current electric bill: ${{current_bill}}\n• Net monthly savings: ${{net_savings}}\n\n**Why Solar Costs Less Now:**\n• Prices dropped 70% in last decade\n• 30% federal tax credit\n• Florida incentives and rebates\n• Financing as low as 2.99% APR\n\n**Bottom Line:** You start saving money from day one. Your solar payment is less than your current electric bill.\n\nWant to see the exact numbers for your home?\n\n{{sales_rep_name}}"
+          }
+        },
+        "roof_concern": {
+          "email": {
+            "subject": "About your roof and solar installation",
+            "body": "Hi {{first_name}},\n\nGreat question about your roof! Here's what you should know:\n\n**Roof Requirements:**\n• Your {{roof_age}}-year-old {{roof_material}} roof is {{roof_suitability}} for solar\n• We can work with most roof types and ages\n• If repairs needed, we coordinate with trusted roofers\n\n**Installation Process:**\n• Professional structural assessment included\n• Minimal roof penetrations with waterproof sealing\n• 25-year workmanship warranty\n• Insurance covers any issues\n\n**Roof Protection:**\n• Solar panels actually protect your roof from weather\n• Extends roof life by reducing UV exposure\n• Easy removal if roof replacement needed later\n\nWould you like our roofing specialist to take a look?\n\n{{sales_rep_name}}"
+          }
+        }
+      },
+      "seasonal_campaigns": {
+        "hurricane_season": {
+          "email": {
+            "subject": "{{first_name}}, stay powered during Florida storms",
+            "body": "Hi {{first_name}},\n\nWith hurricane season approaching, many Florida homeowners are thinking about backup power. Here's how solar + battery storage can help:\n\n**Storm Preparedness:**\n• Keep lights, refrigerator, and AC running\n• Charge phones and medical devices\n• No need for noisy, expensive generators\n• Automatic backup power switching\n\n**Year-Round Benefits:**\n• Daily electric bill savings: ${{monthly_savings}}\n• Storm protection and peace of mind\n• Increase home value\n• Environmental benefits\n\n**Limited Time:**\nBattery storage incentives available through {{incentive_deadline}}.\n\nReady to protect your family and save money?\n\n{{sales_rep_name}}\nRon's Florida Solar LLC"
+          }
+        },
+        "summer_savings": {
+          "email": {
+            "subject": "Beat Florida's summer electric bills with solar",
+            "body": "Hi {{first_name}},\n\nFlorida summers mean high AC bills. Your {{utility_company}} bill could hit ${{summer_bill_estimate}} this summer!\n\n**Solar Summer Benefits:**\n• Peak production during highest usage\n• Offset expensive peak-hour rates\n• Cool your home with free solar power\n• Typical summer savings: ${{summer_savings}}\n\n**Install Before Summer:**\n• Get system running before peak season\n• Start saving on your highest bills\n• Beat the summer installation rush\n• Current incentives expire {{incentive_deadline}}\n\nReady to keep cool and save money this summer?\n\n{{sales_rep_name}}"
+          }
+        }
+      }
+    },
+    "commercial": {
+      "initial_contact": {
+        "email": {
+          "subject_lines": [
+            "Reduce {{business_name}}'s electric costs by {{savings_percentage}}%",
+            "{{first_name}}, solar could save {{business_name}} ${{annual_savings}} annually",
+            "Commercial solar analysis for {{business_name}}",
+            "How {{business_name}} can benefit from solar tax incentives"
+          ],
+          "body_template": "Hi {{first_name}},\n\nI help Florida businesses reduce operating costs with commercial solar. Based on {{business_name}}'s location and industry, you could potentially save ${{annual_savings}} annually on electricity.\n\n**Commercial Solar Benefits:**\n• Immediate tax benefits (30% federal + accelerated depreciation)\n• Hedge against rising utility rates\n• Improve sustainability profile\n• Increase property value\n• Predictable energy costs for 25+ years\n\n**For {{business_type}} businesses like yours:**\n• Typical ROI: {{roi_percentage}}%\n• Payback period: {{payback_years}} years\n• Average savings: {{savings_percentage}}% of electric costs\n\nWould you be interested in a free commercial solar analysis?\n\nBest regards,\n{{sales_rep_name}}\nRon's Florida Solar LLC\nCommercial Solar Division"
+        }
+      },
+      "proposal_follow_up": {
+        "email": {
+          "subject": "{{business_name}} Solar Proposal - {{system_size}}kW System",
+          "body": "Hi {{first_name}},\n\nAttached is the commercial solar proposal for {{business_name}}. Here are the key highlights:\n\n**System Overview:**\n• {{system_size}}kW commercial solar array\n• {{panel_count}} high-efficiency panels\n• {{inverter_type}} commercial inverters\n• Professional installation and commissioning\n\n**Financial Analysis:**\n• Year 1 savings: ${{year1_savings}}\n• 25-year savings: ${{lifetime_savings}}\n• Simple payback: {{payback_years}} years\n• IRR: {{irr_percentage}}%\n\n**Tax Benefits:**\n• Federal tax credit: ${{federal_tax_credit}}\n• Accelerated depreciation: ${{depreciation_benefit}}\n• Total first-year tax benefits: ${{total_tax_benefits}}\n\n**Next Steps:**\n• Site survey and engineering\n• Permit applications\n• Utility interconnection\n• Installation timeline: {{installation_timeline}}\n\nI'm available to discuss any questions about the proposal.\n\n{{sales_rep_name}}"
+        }
+      }
+    }
+  },
+  "message_personalization_variables": {
+    "residential": [
+      "first_name", "last_name", "address", "city", "zip_code",
+      "monthly_bill", "kwh_usage", "utility_company", "roof_age",
+      "roof_material", "estimated_monthly_savings", "annual_savings",
+      "lifetime_savings", "system_size", "panel_count", "payback_years",
+      "tax_credit_amount", "financing_options", "installation_timeline"
+    ],
+    "commercial": [
+      "first_name", "last_name", "business_name", "business_type",
+      "annual_electric_cost", "demand_charges", "system_size",
+      "annual_savings", "lifetime_savings", "roi_percentage",
+      "payback_years", "federal_tax_credit", "depreciation_benefit",
+      "installation_timeline", "savings_percentage"
+    ]
+  },
+  "a_b_test_variations": {
+    "subject_line_types": [
+      "savings_focused", "curiosity_driven", "urgency_based", "social_proof"
+    ],
+    "message_tones": [
+      "professional", "friendly", "educational", "consultative"
+    ],
+    "call_to_action_styles": [
+      "direct_ask", "soft_offer", "question_based", "benefit_focused"
+    ]
+  }
+}

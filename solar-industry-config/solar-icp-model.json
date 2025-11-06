@@ -1,0 +1,314 @@
+{
+  "solar_icp_model": {
+    "name": "Florida Solar Residential ICP",
+    "version": "1.0",
+    "industry": "solar_energy",
+    "market": "florida_residential",
+    "scoring_criteria": {
+      "property_characteristics": {
+        "weight": 25,
+        "factors": {
+          "roof_condition": {
+            "excellent": 100,
+            "good": 80,
+            "fair": 60,
+            "poor": 20,
+            "unknown": 50
+          },
+          "roof_age": {
+            "0-5_years": 100,
+            "6-10_years": 90,
+            "11-15_years": 70,
+            "16-20_years": 40,
+            "20+_years": 20
+          },
+          "roof_material": {
+            "asphalt_shingle": 90,
+            "metal": 100,
+            "tile": 85,
+            "flat": 70,
+            "slate": 60,
+            "wood": 30
+          },
+          "roof_orientation": {
+            "south": 100,
+            "southwest": 95,
+            "southeast": 95,
+            "west": 80,
+            "east": 80,
+            "north": 40
+          },
+          "shading": {
+            "none": 100,
+            "minimal": 85,
+            "moderate": 60,
+            "heavy": 30
+          },
+          "property_type": {
+            "single_family": 100,
+            "townhouse": 80,
+            "condo": 40,
+            "mobile_home": 60
+          }
+        }
+      },
+      "financial_qualification": {
+        "weight": 30,
+        "factors": {
+          "credit_score": {
+            "750+": 100,
+            "700-749": 90,
+            "650-699": 75,
+            "600-649": 50,
+            "below_600": 20
+          },
+          "annual_income": {
+            "100k+": 100,
+            "75k-99k": 85,
+            "50k-74k": 70,
+            "35k-49k": 50,
+            "below_35k": 25
+          },
+          "homeownership_duration": {
+            "10+_years": 100,
+            "5-9_years": 90,
+            "2-4_years": 70,
+            "1-2_years": 50,
+            "less_than_1": 30
+          },
+          "debt_to_income": {
+            "below_20%": 100,
+            "20-30%": 85,
+            "30-40%": 70,
+            "40-50%": 50,
+            "above_50%": 25
+          }
+        }
+      },
+      "energy_profile": {
+        "weight": 20,
+        "factors": {
+          "monthly_electric_bill": {
+            "300+": 100,
+            "200-299": 90,
+            "150-199": 80,
+            "100-149": 60,
+            "below_100": 30
+          },
+          "kwh_usage": {
+            "2000+": 100,
+            "1500-1999": 90,
+            "1000-1499": 80,
+            "750-999": 60,
+            "below_750": 40
+          },
+          "usage_pattern": {
+            "high_daytime": 100,
+            "balanced": 80,
+            "high_evening": 70,
+            "unknown": 60
+          },
+          "rate_structure": {
+            "tiered": 90,
+            "time_of_use": 85,
+            "flat": 70
+          }
+        }
+      },
+      "geographic_factors": {
+        "weight": 15,
+        "factors": {
+          "solar_irradiance": {
+            "excellent": 100,
+            "very_good": 90,
+            "good": 80,
+            "fair": 60,
+            "poor": 30
+          },
+          "utility_company": {
+            "fpl": 90,
+            "duke_energy": 85,
+            "teco": 80,
+            "jea": 75,
+            "other": 70
+          },
+          "net_metering_available": {
+            "yes": 100,
+            "limited": 70,
+            "no": 30
+          },
+          "hoa_restrictions": {
+            "none": 100,
+            "minimal": 80,
+            "moderate": 60,
+            "strict": 30
+          }
+        }
+      },
+      "behavioral_indicators": {
+        "weight": 10,
+        "factors": {
+          "environmental_interest": {
+            "high": 100,
+            "moderate": 80,
+            "low": 50,
+            "unknown": 60
+          },
+          "technology_adoption": {
+            "early_adopter": 100,
+            "mainstream": 80,
+            "late_adopter": 60,
+            "laggard": 40
+          },
+          "research_behavior": {
+            "extensive": 90,
+            "moderate": 80,
+            "minimal": 60,
+            "none": 40
+          },
+          "timeline": {
+            "immediate": 100,
+            "3_months": 90,
+            "6_months": 80,
+            "12_months": 60,
+            "exploring": 40
+          }
+        }
+      }
+    },
+    "qualification_thresholds": {
+      "hot_lead": 85,
+      "warm_lead": 70,
+      "cold_lead": 50,
+      "disqualified": 30
+    },
+    "routing_rules": {
+      "hot_lead": {
+        "priority": "immediate",
+        "assignment": "senior_sales_rep",
+        "follow_up": "within_5_minutes"
+      },
+      "warm_lead": {
+        "priority": "high",
+        "assignment": "available_sales_rep",
+        "follow_up": "within_30_minutes"
+      },
+      "cold_lead": {
+        "priority": "normal",
+        "assignment": "junior_sales_rep",
+        "follow_up": "within_2_hours"
+      }
+    }
+  },
+  "commercial_icp_model": {
+    "name": "Florida Solar Commercial ICP",
+    "version": "1.0",
+    "industry": "solar_energy",
+    "market": "florida_commercial",
+    "scoring_criteria": {
+      "business_characteristics": {
+        "weight": 30,
+        "factors": {
+          "business_type": {
+            "retail": 90,
+            "warehouse": 95,
+            "manufacturing": 85,
+            "office": 75,
+            "restaurant": 80,
+            "agriculture": 100,
+            "other": 70
+          },
+          "building_ownership": {
+            "owner_occupied": 100,
+            "long_term_lease": 70,
+            "short_term_lease": 30
+          },
+          "roof_size": {
+            "50000+_sqft": 100,
+            "25000-49999": 90,
+            "10000-24999": 80,
+            "5000-9999": 70,
+            "below_5000": 50
+          },
+          "business_age": {
+            "10+_years": 100,
+            "5-9_years": 85,
+            "3-4_years": 70,
+            "1-2_years": 50,
+            "less_than_1": 30
+          }
+        }
+      },
+      "financial_profile": {
+        "weight": 25,
+        "factors": {
+          "annual_revenue": {
+            "10M+": 100,
+            "5-10M": 90,
+            "1-5M": 80,
+            "500k-1M": 70,
+            "below_500k": 50
+          },
+          "credit_rating": {
+            "excellent": 100,
+            "good": 85,
+            "fair": 60,
+            "poor": 30
+          },
+          "tax_appetite": {
+            "high": 100,
+            "moderate": 80,
+            "low": 50,
+            "none": 20
+          }
+        }
+      },
+      "energy_consumption": {
+        "weight": 25,
+        "factors": {
+          "monthly_electric_cost": {
+            "5000+": 100,
+            "2500-4999": 90,
+            "1000-2499": 80,
+            "500-999": 60,
+            "below_500": 30
+          },
+          "demand_charges": {
+            "high": 100,
+            "moderate": 80,
+            "low": 60,
+            "none": 40
+          },
+          "usage_profile": {
+            "daytime_heavy": 100,
+            "balanced": 80,
+            "evening_heavy": 60
+          }
+        }
+      },
+      "operational_factors": {
+        "weight": 20,
+        "factors": {
+          "decision_maker_access": {
+            "direct": 100,
+            "one_level": 80,
+            "multiple_levels": 50,
+            "unknown": 40
+          },
+          "sustainability_goals": {
+            "committed": 100,
+            "interested": 80,
+            "neutral": 60,
+            "resistant": 30
+          },
+          "timeline": {
+            "immediate": 100,
+            "6_months": 85,
+            "12_months": 70,
+            "exploring": 50
+          }
+        }
+      }
+    }
+  }
+}

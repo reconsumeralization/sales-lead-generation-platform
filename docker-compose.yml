@@ -1,0 +1,199 @@
+version: '3.8'
+
+services:
+  # API Gateway
+  api-gateway:
+    build:
+      context: ./services/api-gateway
+      dockerfile: Dockerfile
+    ports:
+      - "8080:3000"
+    environment:
+      - NODE_ENV=development
+      - JWT_SECRET=your-jwt-secret-key
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - redis
+      - postgres
+    networks:
+      - sales-platform
+
+  # Lead Scoring Service
+  lead-scoring:
+    build:
+      context: ./services/lead-scoring
+      dockerfile: Dockerfile
+    ports:
+      - "8081:3001"
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=postgresql://postgres:password@postgres:5432/sales_platform
+      - REDIS_URL=redis://redis:6379
+      - KAFKA_BROKERS=kafka:9092
+    depends_on:
+      - postgres
+      - redis
+      - kafka
+    networks:
+      - sales-platform
+
+  # Outreach Generation Service
+  outreach-generation:
+    build:
+      context: ./services/outreach-generation
+      dockerfile: Dockerfile
+    ports:
+      - "8082:3002"
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=postgresql://postgres:password@postgres:5432/sales_platform
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - KAFKA_BROKERS=kafka:9092
+    depends_on:
+      - postgres
+      - kafka
+    networks:
+      - sales-platform
+
+  # Deal Intelligence Service
+  deal-intelligence:
+    build:
+      context: ./services/deal-intelligence
+      dockerfile: Dockerfile
+    ports:
+      - "8083:3003"
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=postgresql://postgres:password@postgres:5432/sales_platform
+      - KAFKA_BROKERS=kafka:9092
+    depends_on:
+      - postgres
+      - kafka
+    networks:
+      - sales-platform
+
+  # CRM Sync Service
+  crm-sync:
+    build:
+      context: ./services/crm-sync
+      dockerfile: Dockerfile
+    ports:
+      - "8084:3004"
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=postgresql://postgres:password@postgres:5432/sales_platform
+      - REDIS_URL=redis://redis:6379
+      - KAFKA_BROKERS=kafka:9092
+    depends_on:
+      - postgres
+      - redis
+      - kafka
+    networks:
+      - sales-platform
+
+  # Compliance Service
+  compliance:
+    build:
+      context: ./services/compliance
+      dockerfile: Dockerfile
+    ports:
+      - "8085:3005"
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=postgresql://postgres:password@postgres:5432/sales_platform
+      - KAFKA_BROKERS=kafka:9092
+    depends_on:
+      - postgres
+      - kafka
+    networks:
+      - sales-platform
+
+  # Analytics Service
+  analytics:
+    build:
+      context: ./services/analytics
+      dockerfile: Dockerfile
+    ports:
+      - "8086:3006"
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=postgresql://postgres:password@postgres:5432/sales_platform
+      - ELASTICSEARCH_URL=http://elasticsearch:9200
+      - KAFKA_BROKERS=kafka:9092
+    depends_on:
+      - postgres
+      - elasticsearch
+      - kafka
+    networks:
+      - sales-platform
+
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_DB=sales_platform
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+    ports:
+      - "8432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/init:/docker-entrypoint-initdb.d
+    networks:
+      - sales-platform
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "8379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - sales-platform
+
+  # Kafka Message Broker
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    networks:
+      - sales-platform
+
+  kafka:
+    image: confluentinc/cp-kafka:latest
+    depends_on:
+      - zookeeper
+    ports:
+      - "8092:9092"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    networks:
+      - sales-platform
+
+  # Elasticsearch for Analytics
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.8.0
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ports:
+      - "8200:9200"
+    volumes:
+      - elasticsearch_data:/usr/share/elasticsearch/data
+    networks:
+      - sales-platform
+
+volumes:
+  postgres_data:
+  redis_data:
+  elasticsearch_data:
+
+networks:
+  sales-platform:
+    driver: bridge
